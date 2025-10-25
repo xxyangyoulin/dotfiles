@@ -1,0 +1,23 @@
+@define-color foreground #dce2e3;
+@define-color background #233a28;
+@define-color cursor #dce2e3;
+
+@define-color color0 #233a28;
+@define-color color1 #8FA6B7;
+@define-color color2 #CEC2A6;
+@define-color color3 #94B0C6;
+@define-color color4 #A6BACA;
+@define-color color5 #A6C9DB;
+@define-color color6 #B4C9D4;
+@define-color color7 #dce2e3;
+@define-color color8 #9a9e9e;
+@define-color color9 #8FA6B7;
+@define-color color10 #CEC2A6;
+@define-color color11 #94B0C6;
+@define-color color12 #A6BACA;
+@define-color color13 #A6C9DB;
+@define-color color14 #B4C9D4;
+@define-color color15 #dce2e3;
+
+@import 'themes/notifications.css';
+@import 'themes/central_control.css';

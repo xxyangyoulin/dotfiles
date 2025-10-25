@@ -1,0 +1,170 @@
+@define-color backgroundlight #FFFFFF;
+@define-color backgrounddark #FFFFFF;
+@define-color workspacesbackground1 #FFFFFF;
+@define-color workspacesbackground2 #CCCCCC;
+@define-color bordercolor #FFFFFF;
+@define-color textcolor1 #000000;
+@define-color textcolor2 #000000;
+@define-color textcolor3 #FFFFFF;
+@define-color iconcolor #FFFFFF;
+
+
+* {
+    border: none;
+    font-family: JetBrains Mono Nerd Font, Regular;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+window#waybar {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/*-----module groups----*/
+.modules-right {
+    margin-right: 1px;
+}
+
+.modules-left {
+    margin-left: 1px;
+}
+
+/*-----modules indv----*/
+#workspaces button {
+    color: #111;
+    padding: 1px 5px;
+    background-color: transparent;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#workspaces button.active {
+    background: rgb(78, 78, 78);
+    border-radius: 3px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#workspaces button.focus {
+    border-radius: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+
+#clock,
+#custom-cnclock,
+#custom-cnclockweek,
+#temperature,
+#network,
+#pulseaudio,
+#custom-tw-on,
+#idle_inhibitor,
+#custom-power,
+#language,
+#tray {
+    padding: 3px 10px;
+}
+
+/*-----Indicators----*/
+#pulseaudio.muted {
+    color: #cc3436;
+}
+
+#temperature.critical {
+    color: #cc3436;
+}
+
+#tray menu {
+    background-color: #333;
+}
+
+#keyboard-state label.capslock.locked {
+    color: red;
+}
+
+/** ************/
+
+/* #clock {
+    background: @workspacesbackground2;
+    color: @textcolor1;
+    border-radius: 15px;
+} */
+
+window#waybar {
+    background-color: rgba(43, 48, 59, 0.5);
+    /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+window#waybar.empty #window {
+    background-color: transparent;
+}
+
+#custom-cnclock,
+#clock {
+    font-family: Microsoft YaHei, Regular;
+    font-size: 15px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    background-color: rgba(255, 255, 255, 0.7);
+     color: #0a1f50;  
+     border-radius: 20px;
+}
+
+/* -----------------------------------------------------
+ * Workspaces
+ * ----------------------------------------------------- */
+
+#workspaces {
+    /* margin: 5px 1px 6px 1px; */
+    padding: 0px 1px;
+    border-radius: 15px;
+    border: 0px;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 16px;
+    color: @textcolor1;
+}
+
+#workspaces button {
+    padding: 0px 5px;
+    /* margin: 4px 3px; */
+    border-radius: 15px;
+    border: 0px;
+    color: @textcolor3;
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.active {
+    color: @textcolor1;
+    background: @workspacesbackground2;
+    border-radius: 15px;
+    min-width: 40px;
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces button:hover {
+    color: @textcolor1;
+    background: @workspacesbackground2;
+    border-radius: 15px;
+}
+
+#custom-stock {
+ /*   color: #89b4fa;    */    /* 淡蓝色，可改 */
+    color: #D75F00;
+}
+
+#custom-volume{
+    color:#ff5555;
+}
+
+#custom-logo{
+    color:#1793D1;
+}

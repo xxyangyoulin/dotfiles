@@ -1,0 +1,63 @@
+"" Source your .vimrc
+" source ~/.vimrc
+
+"" -- Suggested  options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=5
+
+" Do incremental searching.
+set incsearch
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+" 将 H 映射为 ^
+map H ^
+" 将 L 映射为 g_
+map L g_
+" 将 H 映射为 ^
+vmap H ^
+" 将 L 映射为 g_
+vmap L g_
+" 将 J 映射为 5j
+map J 5j
+" 将 K 映射为 5k
+map K 5k
+" 在可视模式下将 J 映射为 5j
+vmap J 5j
+" 在可视模式下将 K 映射为 5k
+vmap K 5k
+let mpleader = " "
+
+" https://github.com/JetBrains/ideavim/wiki/IdeaVim-Plugins
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'kana/vim-textobj-entire'
+Plug 'easymotion/vim-easymotion'
+
+Plug 'justinmk/vim-sneak'
+set sneak
+
+Plug 'tpope/vim-surround'
+
+nmap <Space> <Plug>(easymotion-s)
+" source ~/.vimrc
+:set keep-english-in-normal-and-restore-in-inserjjt
+
+set functiontextobj
+
+inoremap jk <ESC
