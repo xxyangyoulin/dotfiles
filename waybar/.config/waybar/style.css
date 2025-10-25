@@ -30,25 +30,47 @@ window#waybar {
 }
 
 /*-----modules indv----*/
+#workspaces {
+    padding: 0px 5px;
+    /* margin: 4px 3px; */
+    border-radius: 15px;
+    border: 0px;
+}
+
 #workspaces button {
-    color: #111;
-    padding: 1px 5px;
     background-color: transparent;
     margin-bottom: 5px;
     margin-top: 5px;
+    padding: 0px 5px;
+    /* margin: 4px 3px; */
+    border-radius: 15px;
+    border: 0px;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
 }
 
 #workspaces button.active {
-    background: rgb(78, 78, 78);
-    border-radius: 3px;
     margin-bottom: 5px;
     margin-top: 5px;
+    background: @workspacesbackground2;
+    border-radius: 15px;
+    min-width: 40px;
+    transition: all 0.3s ease-in-out;
+
 }
 
 #workspaces button.focus {
-    border-radius: 10px;
     margin-bottom: 5px;
     margin-top: 5px;
+    background: @workspacesbackground2;
+    border-radius: 15px;
+}
+
+#workspaces button:hover,
+#workspaces button.active *,
+#workspaces button.hover *,
+#workspaces button.focus * {
+    color: #0a1f50;
 }
 
 
@@ -114,57 +136,24 @@ window#waybar.empty #window {
     margin-bottom: 5px;
     margin-top: 5px;
     background-color: rgba(255, 255, 255, 0.7);
-     color: #0a1f50;  
-     border-radius: 20px;
+    color: #0a1f50;
+    border-radius: 20px;
 }
 
 /* -----------------------------------------------------
  * Workspaces
  * ----------------------------------------------------- */
 
-#workspaces {
-    /* margin: 5px 1px 6px 1px; */
-    padding: 0px 1px;
-    border-radius: 15px;
-    border: 0px;
-    font-weight: bold;
-    font-style: normal;
-    font-size: 16px;
-    color: @textcolor1;
-}
-
-#workspaces button {
-    padding: 0px 5px;
-    /* margin: 4px 3px; */
-    border-radius: 15px;
-    border: 0px;
-    color: @textcolor3;
-    transition: all 0.3s ease-in-out;
-}
-
-#workspaces button.active {
-    color: @textcolor1;
-    background: @workspacesbackground2;
-    border-radius: 15px;
-    min-width: 40px;
-    transition: all 0.3s ease-in-out;
-}
-
-#workspaces button:hover {
-    color: @textcolor1;
-    background: @workspacesbackground2;
-    border-radius: 15px;
-}
-
 #custom-stock {
- /*   color: #89b4fa;    */    /* 淡蓝色，可改 */
+    /*   color: #89b4fa;    */
+    /* 淡蓝色，可改 */
     color: #D75F00;
 }
 
-#custom-volume{
-    color:#ff5555;
+#custom-volume {
+    color: #ff5555;
 }
 
-#custom-logo{
-    color:#1793D1;
+#custom-logo {
+    color: #1793D1;
 }
