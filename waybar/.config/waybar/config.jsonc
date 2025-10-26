@@ -274,7 +274,8 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "custom/network_traffic": {
-        "exec": "~/.config/waybar/scripts/netspeed.sh  enp2s0 1",
+        // "exec": "~/.config/waybar/scripts/netspeed.sh  enp2s0 1",
+        "exec": "~/.config/waybar/network_traffic2.sh",
         "return-type": "json",
         "format": "{}" // optional
     },
@@ -387,7 +388,8 @@
         "album-len": 0,
         "status-icons": {
             "paused": "⏸"
-        }
+        },
+        "tooltip": false
         // "ignored-players": ["firefox"]
     },
     "disk": {
