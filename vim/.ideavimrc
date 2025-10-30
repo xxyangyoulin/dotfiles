@@ -61,4 +61,4 @@ let rime_ascii = 1
 
 set functiontextobj
 
-inoremap jk <ESC
+inoremap jk <ESC>
