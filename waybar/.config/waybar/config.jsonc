@@ -38,6 +38,7 @@
         // "backlight",
         // "hyprland/language",
         //  "clock",
+	"custom/proxy-status",
         "network",
         "custom/cnclockweek",
         "custom/cnclock",
@@ -282,7 +283,7 @@
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         // "format": "{volume}% {icon} {format_source}",
-        "format": "{volume}% {icon}",
+        "format": "{icon} {volume}%",
         //"format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth": "{icon}{volume}%",
         //"format-bluetooth-muted": " {icon} {format_source}",
@@ -423,4 +424,11 @@
         "on-click-right": "swaync-client -d -sw",
         "escape": true
     },
+     "custom/proxy-status": {
+        "format": "{text}",
+        "exec": "~/sh/check_vpn_proxy.sh",
+        "interval": 1,
+        "return-type": "json",
+        "tooltip": true
+    }
 }

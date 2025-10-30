@@ -1,0 +1,13 @@
+patch:
+  speller:
+    alphabet: zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA
+    delimiter: " '"  
+    algebra:
+      - derive/^([zcs])h/$1/          # z c s → zh ch sh
+      - derive/^([zcs])([^h])/$1h$2/  # zh ch sh → z c s
+      - derive/^l/n/  # n → l
+      - derive/^n/l/  # l → n
+      - derive/eng/en/
+      - derive/en/eng/
+      - derive/in/ing/
+      - derive/ing/in/

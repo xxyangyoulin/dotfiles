@@ -55,8 +55,9 @@ set sneak
 Plug 'tpope/vim-surround'
 
 nmap <Space> <Plug>(easymotion-s)
-" source ~/.vimrc
-:set keep-english-in-normal-and-restore-in-inserjjt
+
+let rime_ascii = 1
+:set keep-english-in-normal-and-restore-in-insert
 
 set functiontextobj
 

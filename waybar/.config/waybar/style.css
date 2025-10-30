@@ -157,3 +157,15 @@ window#waybar.empty #window {
 #custom-logo {
     color: #1793D1;
 }
+#custom-proxy-status {
+    font-weight: bold;
+}
+
+#custom-proxy-status.on {
+    color: #00ff88;
+}
+
+#custom-proxy-status.off {
+    color: #888888;
+}
+
