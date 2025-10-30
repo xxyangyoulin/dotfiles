@@ -276,7 +276,7 @@
     },
     "custom/network_traffic": {
         // "exec": "~/.config/waybar/scripts/netspeed.sh  enp2s0 1",
-        "exec": "~/.config/waybar/network_traffic2.sh",
+        "exec": "~/.config/waybar/network_traffic.sh",
         "return-type": "json",
         "format": "{}" // optional
     },

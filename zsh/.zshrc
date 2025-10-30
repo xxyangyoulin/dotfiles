@@ -124,9 +124,6 @@ alias sde='sd exec -it php-fpm /bin/zsh'
 
 export EDITOR='vim'
 
-export CC="ccache gcc"
-
-
 # 自定义函数切换 PHP 版本
 p7() {
     sudo rm /usr/bin/php
