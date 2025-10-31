@@ -1,10 +1,3 @@
-
-let fcitx5state=system("fcitx5-remote")
-" 退出插入模式时禁用输入法，并保存状态
-autocmd InsertLeave * :silent let fcitx5state=system("fcitx5-remote")[0] | silent !fcitx5-remote -c
-" 2 表示之前状态打开了输入法，则进入插入模式时启动输入法
-autocmd InsertEnter * :silent if fcitx5state == 2 | call system("fcitx5-remote -o") | endif
-
 call plug#begin()
 
 Plug 'ap/vim-css-color'
@@ -42,10 +35,27 @@ Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme='ayu_dark'
 call plug#end()
 
-call plug#begin('~/.vim/plugged')
-Plug 'lilydjwg/fcitx.vim'
-call plug#end()
+" call plug#begin('~/.vim/plugged')
+" Plug 'lilydjwg/fcitx.vim'
+" call plug#end()
 
+" -------------------------------
+" 自动切换 fcitx5-rime 输入法（Vim/Neovim 通用）
+" -------------------------------
 
+let g:fcitx_rime_status = 'true'  " true=英文, false=中文
 
+function! GetRimeStatus()
+  return trim(system("busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 IsAsciiMode"))
+endfunction
+
+function! RimeSetAsciiMode(val)
+  call system("busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b " . a:val)
+endfunction
+
+" 离开插入模式时：记录当前状态并切换为英文
+autocmd InsertLeave * let g:fcitx_rime_status = GetRimeStatus() | call RimeSetAsciiMode('true')
+
+" 进入插入模式时：如果上次是中文状态，则恢复中文
+autocmd InsertEnter * if g:fcitx_rime_status ==# 'b false' | call RimeSetAsciiMode('false') | endif
 
