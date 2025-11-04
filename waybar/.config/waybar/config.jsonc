@@ -41,7 +41,7 @@
         "custom/cnclockweek",
         "custom/cnclock",
         "idle_inhibitor",
-        "keyboard-state",
+        // "keyboard-state",
         "tray",
         "custom/wlogout",
         "custom/notification"
