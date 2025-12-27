@@ -140,6 +140,8 @@ p8() {
     sudo ln -s /usr/bin/php83 /usr/bin/php
     echo "Switched to PHP 8.3 (/usr/bin/php83)"
 }
+# global composer
+export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 
 # 检查默认 PHP 命令是否更新成功
 check_php() {
