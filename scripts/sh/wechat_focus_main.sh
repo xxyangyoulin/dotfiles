@@ -56,5 +56,14 @@ socat - UNIX-CONNECT:"$socket" | while read -r line; do
 
     log_info "focus wechat main window: $main_window_address"
     hyprctl dispatch focuswindow address:$main_window_address
+    cursor_pos=$(hyprctl -j cursorpos)
+    cursor_x=$(echo "$cursor_pos" | jq -r '.x')
+    cursor_y=$(echo "$cursor_pos" | jq -r '.y')
+    
+    # 向右移动 1 像素
+    hyprctl dispatch movecursor $((cursor_x + 1)) $cursor_y
+    sleep 0.01
+    hyprctl dispatch movecursor $((cursor_x - 1)) $cursor_y
+
 done
 
