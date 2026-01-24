@@ -1,3 +1,9 @@
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+
 call plug#begin()
 
 Plug 'ap/vim-css-color'
@@ -58,4 +64,5 @@ autocmd InsertLeave * let g:fcitx_rime_status = GetRimeStatus() | call RimeSetAs
 
 " 进入插入模式时：如果上次是中文状态，则恢复中文
 autocmd InsertEnter * if g:fcitx_rime_status ==# 'b false' | call RimeSetAsciiMode('false') | endif
+
 
