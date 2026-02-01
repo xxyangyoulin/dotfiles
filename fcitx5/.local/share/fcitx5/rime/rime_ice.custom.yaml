@@ -6,6 +6,22 @@ patch:
   translator/contextual_suggestions: true
   translator/max_homophones: 7
   translator/max_homographs: 7
+  translator/initial_quality: 1.2  # 提高词库词的权重
+  speller/max_code_length: 100  # 允许更长的编码（适合长句）
+
+  switches:
+    - name: ascii_mode
+      reset: 0
+      states: [ 中文, 英文 ]
+    - name: emoji_suggestion
+      reset: 1
+      states: [ 💀关, 😄开 ]
+    - name: full_shape
+      states: [ 半角, 全角 ]
+    - name: ascii_punct
+      reset: 0  # 重要：默认使用中文标点
+      states: [ 。，, ．， ]
+
   speller:
     alphabet: zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA
     delimiter: " '"  
@@ -19,3 +35,58 @@ patch:
       - derive/in/ing/
       - derive/ing/in/
 
+      # 建议5：添加常见模糊音
+      - derive/ang/an/  # an → ang
+      - derive/an/ang/  # ang → an
+      - derive/iang/ian/  # ian → iang
+      - derive/ian/iang/  # iang → ian
+      - derive/uang/uan/  # uan → uang
+      - derive/uan/uang/  # uang → uan
+
+      # 常见拼写容错
+      - derive/([aeiou])ng$/$1gn/  # ang → agn（防止打字顺序错误）
+      - derive/([dtngkhrzcs])o(u|ng)$/$1o/  # dong → don, tou → to
+      - derive/ong$/on/  # ong → on
+      - derive/on$/ong/  # on → ong
+
+      - erase/^xx$/                      # 删除无效码
+      - derive/^([jqxy])u$/$1v/         # ju -> jv
+      - derive/^([aoe])([ioun])$/$1$1$2/ # 允许 aa/oo/ee 等
+      - abbrev/^([a-z]).+$/$1/           # 首字母简拼
+      - abbrev/^([zcs]h).+$/$1/          # zh ch sh 简拼
+
+      # 建议7：增强简拼能力
+      - abbrev/^([a-z]{2})[a-z]+$/$1/  # 双字母简拼（如 ni hao → nh）
+
+  # 建议8：自定义标点符号映射
+  # punctuator:
+  #   half_shape:
+  #     '#': '#'
+  #     '*': '*'
+  #     '`': '`'
+  #     '~': '~'
+  #     '@': '@'
+  #     '=': '='
+  #     '/': [/, ÷]
+  #     '\': '\\'
+  #     '_' : '——'
+  #     '[': ['「', '【', '〔', '[']
+  #     ']': ['」', '】', '〕', ']']
+  #     '{': ['『', '〖', '{']
+  #     '}': ['』', '〗', '}']
+
+  # 建议9：启用自动造词
+  translator/enable_sentence: true  # 启用整句输入
+  translator/enable_user_dict: true  # 启用用户词典
+
+  # 建议10：记忆最近输入（提高个性化）
+  translator/enable_encoder: true
+  translator/encode_commit_history: true
+  translator/max_phrase_length: 7  # 允许7字以内的自动造词
+
+  # 英文输入优化（如果经常中英混输）
+  recognizer/patterns/email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+  recognizer/patterns/url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+  
+  # 数字后直接输入字母不转为拼音
+  recognizer/patterns/number: "^[-+]?[0-9][,.:0-9]*[.]?[0-9]*$"
