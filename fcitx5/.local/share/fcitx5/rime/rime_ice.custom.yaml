@@ -9,18 +9,18 @@ patch:
   translator/initial_quality: 1.2  # 提高词库词的权重
   speller/max_code_length: 100  # 允许更长的编码（适合长句）
 
-  switches:
-    - name: ascii_mode
-      reset: 0
-      states: [ 中文, 英文 ]
-    - name: emoji_suggestion
-      reset: 1
-      states: [ 💀关, 😄开 ]
-    - name: full_shape
-      states: [ 半角, 全角 ]
-    - name: ascii_punct
-      reset: 0  # 重要：默认使用中文标点
-      states: [ 。，, ．， ]
+#  switches:
+#    - name: ascii_mode
+#      reset: 0
+#      states: [ 中文, 英文 ]
+#    - name: emoji_suggestion
+#      reset: 1
+#      states: [ 💀关, 😄开 ]
+#    - name: full_shape
+#      states: [ 半角, 全角 ]
+#    - name: ascii_punct
+#      reset: 0  # 重要：默认使用中文标点
+#      states: [ 。，, ．， ]
 
   speller:
     alphabet: zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA
