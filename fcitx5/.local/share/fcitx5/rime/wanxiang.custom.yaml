@@ -1,4 +1,20 @@
 patch:
+  engine/processors:
+    - lua_processor@*ascii_digit_direct
+    - lua_processor@*wanxiang.super_processor
+    - lua_processor@*wanxiang.user_predict*P
+    - lua_processor@*wanxiang.partial_commit
+    - lua_processor@*wanxiang.super_tips
+    - lua_processor@*wanxiang.super_sequence*P
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - lua_processor@*wanxiang.key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
   wanxiang_english/english_spacing: off
   wanxiang_english/spacing_timeout: 5
   wanxiang_english/max_candidates: 5
