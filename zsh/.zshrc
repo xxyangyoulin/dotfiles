@@ -175,20 +175,3 @@ export PATH=$PATH:$(go env GOPATH)/bin
 # end
 export PATH=~/.npm-global/bin:$PATH
 export PATH="$HOME/bin:$PATH"
-
-# PHP 项目: sdfds
-alias sdfds='cd /home/yyl/php-dev/projects/sdfds && docker compose'
-alias sdfds-php='cd /home/yyl/php-dev/projects/sdfds && docker compose exec php php'
-alias sdfds-composer='cd /home/yyl/php-dev/projects/sdfds && docker compose exec php composer'
-alias sdfds-bash='cd /home/yyl/php-dev/projects/sdfds && docker compose exec php bash'
-
-# PHP 项目: test
-alias test='cd /home/yyl/php-dev/projects/test && docker compose'
-alias test-php='cd /home/yyl/php-dev/projects/test && docker compose exec php php'
-alias test-composer='cd /home/yyl/php-dev/projects/test && docker compose exec php composer'
-alias test-bash='cd /home/yyl/php-dev/projects/test && docker compose exec php bash'
-
-# if [[ -z "$TMUX" && -n "$KITTY_PID" && $- == *i* ]]; then
-#     session_name="kitty_${KITTY_PID}_${$}"
-#     exec tmux new-session -A -s "$session_name" -c "$PWD"
-# fi
