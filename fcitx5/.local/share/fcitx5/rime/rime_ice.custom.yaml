@@ -36,8 +36,6 @@ patch:
       - derive/ing/in/
 
       # 建议5：添加常见模糊音
-      - derive/ang/an/  # an → ang
-      - derive/an/ang/  # ang → an
       - derive/iang/ian/  # ian → iang
       - derive/ian/iang/  # iang → ian
       - derive/uang/uan/  # uan → uang

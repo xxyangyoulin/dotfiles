@@ -1,18 +1,18 @@
 patch:
-  # 仅使用「雾凇拼音」的默认配置，配置此行即可
-  __include: rime_ice_suggestion:/
+  __include: wanxiang_suggestion:/
+  schema_list:
+    - schema: wanxiang
   ascii_composer:
-    good_old_caps_lock: true  # true | false
+    good_old_caps_lock: true
     switch_key:
-      Caps_Lock: clear  # commit_code | commit_text | clear
-      Shift_L: commit_code     # commit_code | commit_text | inline_ascii | clear | noop
-      Shift_R: commit_code     # commit_code | commit_text | inline_ascii | clear | noop
-      Control_L: noop   # commit_code | commit_text | inline_ascii | clear | noop
-      Control_R: noop   # commit_code | commit_text | inline_ascii | clear | noop
-  # 以下根据自己所需自行定义，仅做参考。
-  # 针对对应处方的定制条目，请使用 <recipe>.custom.yaml 中配置，例如 rime_ice.custom.yaml
+      Caps_Lock: clear
+      Shift_L: commit_code
+      Shift_R: commit_code
+      Control_L: noop
+      Control_R: noop
   __patch:
     key_binder/bindings/+:
-      # 开启逗号句号翻页
       - { when: paging, accept: comma, send: Page_Up }
       - { when: has_menu, accept: period, send: Page_Down }
+      - { when: has_menu, accept: "Control+y", toggle: emoji }
+      - { when: composing, accept: "Control+y", toggle: emoji }

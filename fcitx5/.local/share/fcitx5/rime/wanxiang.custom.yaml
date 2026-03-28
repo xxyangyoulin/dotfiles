@@ -1,0 +1,23 @@
+patch:
+  wanxiang_english/english_spacing: off
+  wanxiang_english/spacing_timeout: 5
+  wanxiang_english/max_candidates: 5
+  wanxiang_mixedcode/enable_completion: true
+  wanxiang_mixedcode/initial_quality: 2
+  menu/page_size: 5
+  speller/algebra:
+    __patch:
+      - wanxiang_algebra:/模糊音
+      - wanxiang_algebra:/base/全拼
+  translator/contextual_suggestions: true
+  translator/max_homophones: 7
+  translator/max_homographs: 7
+  translator/initial_quality: 1.2
+  translator/enable_sentence: true
+  translator/enable_user_dict: true
+  translator/enable_encoder: true
+  translator/encode_commit_history: true
+  translator/max_phrase_length: 7
+  recognizer/patterns/email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+  recognizer/patterns/url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+  recognizer/patterns/number: "^[-+]?[0-9][,.:0-9]*[.]?[0-9]*$"
