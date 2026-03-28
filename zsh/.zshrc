@@ -170,8 +170,28 @@ ckproxy () {
     curl ipinfo.io
 }
 
+# log filter
+logblock() {
+  local file="$1"
+  local pattern="$2"
+  awk -v pat="$pattern" '
+  /^\[[0-9]{2}:[0-9]{2}:[0-9]{2} [0-9]{2}-[0-9]{2}-[0-9]{4}\]/ {
+    if (NR > 1 && block ~ pat) print block "\n"
+    block = $0
+    next
+  }
+  {
+    block = block "\n" $0
+  }
+  END {
+    if (block ~ pat) print block
+  }
+  ' "$file"
+}
+
 export PATH=$PATH:$(go env GOPATH)/bin
 
 # end
-export PATH=~/.npm-global/bin:$PATH
 export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
+source /usr/share/nvm/init-nvm.sh
