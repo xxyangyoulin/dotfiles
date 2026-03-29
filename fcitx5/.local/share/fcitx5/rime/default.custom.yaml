@@ -2,6 +2,7 @@ patch:
   __include: wanxiang_suggestion:/
   schema_list:
     - schema: wanxiang
+    - schema: rime_ice
   ascii_composer:
     good_old_caps_lock: true
     switch_key:
