@@ -18,8 +18,9 @@ patch:
   wanxiang_english/english_spacing: off
   wanxiang_english/spacing_timeout: 5
   wanxiang_english/max_candidates: 5
-  wanxiang_mixedcode/enable_completion: true
-  wanxiang_mixedcode/initial_quality: 2
+  wanxiang_english/initial_quality: 0.8
+  wanxiang_mixedcode/enable_completion: false
+  wanxiang_mixedcode/initial_quality: 0.6
   menu/page_size: 5
   speller/algebra:
     __patch:
