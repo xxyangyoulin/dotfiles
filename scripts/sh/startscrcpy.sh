@@ -57,7 +57,7 @@ optimize_animations() {
 check_scrcpy() {
     if pgrep -x "scrcpy" > /dev/null; then
         echo "✅ scrcpy 已启动"
-        optimize_animations
+        # optimize_animations
     else
         echo "♻️ scrcpy 未运行，尝试重启..."
         ~/sh/startscrcpy.sh

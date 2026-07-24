@@ -124,6 +124,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias sd='sudo docker'
 alias sde='sd exec -it php-fpm /bin/zsh'
+alias pnpm10='/home/yyl/.local/share/pnpm/.tools/pnpm-exe/10.33.4/pnpm'
 
 
 export EDITOR='vim'
@@ -154,15 +155,23 @@ eval "$(pyenv init --path)"
 #
 # where proxy
 proxy () {
-    export http_proxy="http://127.0.0.1:7890"
-    export https_proxy=$http_proxy
+    export HTTP_PROXY="http://127.0.0.1:7890"
+    export HTTPS_PROXY=$HTTP_PROXY
+    export ALL_PROXY=$HTTP_PROXY
+    export http_proxy=$HTTP_PROXY
+    export https_proxy=$HTTPS_PROXY
+    export all_proxy=$ALL_PROXY
     echo "HTTP Proxy on"
 }
 
 # where noproxy
 noproxy () {
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    unset ALL_PROXY
     unset http_proxy
     unset https_proxy
+    unset all_proxy
     echo "HTTP Proxy off"
 }
 
@@ -195,3 +204,14 @@ export PATH=$PATH:$(go env GOPATH)/bin
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 source /usr/share/nvm/init-nvm.sh
+
+# pnpm
+export PNPM_HOME="/home/yyl/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# fishword CLI alias
+alias fishword="node ~/.pi/agent/npm/node_modules/@fishword/cli/bin/fishword.js"
