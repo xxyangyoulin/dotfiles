@@ -8,6 +8,7 @@ set -e  # 出错即退出
 # 环境初始化
 #=============================
 DEVICE_ID=${MYPHONE:-""}
+WINDOW_SIZE_FILE="$HOME/.config/scrcpy/window-size"
 
 if [ -z "$DEVICE_ID" ]; then
     echo "❌ 环境变量 MYPHONE 未定义，请先设置："
@@ -43,6 +44,12 @@ stop_scrcpy() {
 
     echo "🛑 关闭 scrcpy..."
     if pgrep -x "scrcpy" > /dev/null; then
+        local window_size
+        window_size=$(hyprctl clients -j | jq -r '.[] | select(.class | test("^scrcpy"; "i")) | .size | "\(.[0]) \(.[1])"' | head -n 1)
+        if [ -n "$window_size" ]; then
+            mkdir -p "$(dirname "$WINDOW_SIZE_FILE")"
+            printf '%s\n' "$window_size" > "$WINDOW_SIZE_FILE"
+        fi
         pkill scrcpy
         echo "✅ scrcpy 已关闭。"
     else

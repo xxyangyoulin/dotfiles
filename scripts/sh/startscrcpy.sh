@@ -8,6 +8,7 @@ set -e  # 出错时退出脚本
 # 初始化与环境检测
 #=============================
 DEVICE_ID=${MYPHONE:-""}
+WINDOW_SIZE_FILE="$HOME/.config/scrcpy/window-size"
 
 if [ -z "$DEVICE_ID" ]; then
     echo "❌ 环境变量 MYPHONE 未定义，请在 Hyprland 或当前终端中设置："
@@ -29,7 +30,16 @@ adb_cmd() {
 #=============================
 start_scrcpy() {
     echo "🚀 启动 scrcpy..."
-    scrcpy -S -K -s "$DEVICE_ID" --stay-awake &
+    local window_size=()
+
+    if [ -f "$WINDOW_SIZE_FILE" ]; then
+        read -r width height < "$WINDOW_SIZE_FILE"
+        if [ -n "$width" ] && [ -n "$height" ]; then
+            window_size=(--window-width="$width" --window-height="$height")
+        fi
+    fi
+
+    scrcpy -S -K -s "$DEVICE_ID" --stay-awake --window-borderless "${window_size[@]}" &
     sleep 1
 }
 

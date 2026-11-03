@@ -50,10 +50,10 @@ end
 
 hl.env("GTK_IM_MODULE", "fcitx")
 hl.env("XMODIFIERS", "@im=fcitx")
-hl.env("WLR_DRM_NO_ATOMIC", "1")
+hl.env("AQ_NO_ATOMIC", "1")
+hl.env("AQ_NO_MODIFIERS", "1")
 hl.env("LIBVA_DRIVER_NAME", "iHD")
 hl.env("XDG_SESSION_TYPE", "wayland")
-hl.env("WLR_NO_HARDWARE_CURSORS", "1")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "mesa")
 hl.env("MESA_LOADER_DRIVER_NAME", "iris")
 hl.env("QT_IM_MODULE", "fcitx")
@@ -67,10 +67,14 @@ hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("XCURSOR_SIZE", "24")
 
 hl.monitor({
-	output = "",
-	mode = "preferred",
-	position = "auto",
+	output = "HDMI-A-1",
+	mode = "1920x1080@60",
+	position = "0x0",
 	scale = 1,
+	bitdepth = 8,
+	cm = "srgb",
+	vrr = 0,
+	supports_hdr = -1,
 })
 
 hl.config({
@@ -87,7 +91,7 @@ hl.config({
 	cursor = {
 		no_warps = true,
 		min_refresh_rate = 50,
-		no_hardware_cursors = false,
+		no_hardware_cursors = true,
 		hide_on_key_press = true,
 	},
 	general = {
@@ -149,9 +153,9 @@ hl.config({
 		mfact = 0.65,
 	},
 	misc = {
-		disable_hyprland_logo = true,
-		disable_splash_rendering = true,
-		vrr = 1,
+			disable_hyprland_logo = false,
+			disable_splash_rendering = false,
+		vrr = 0,
 		allow_session_lock_restore = 1,
 		focus_on_activate = true,
 		enable_swallow = false,
@@ -176,23 +180,22 @@ hl.device({
 exec_once("systemctl --user import-environment --all")
 exec_once("dbus-update-activation-environment --systemd --all")
 exec_once("sleep 2 && DISPLAY=:0 fcitx5 -r -d")
-exec_once("systemctl --user start hyprland-session.target")
+	-- DMS is currently unable to connect to a Wayland socket and prevents a usable session.
 exec_once("xrdb -merge ~/.Xresources")
 exec_once("flclash")
 exec_once("udiskie &")
-exec_once('bash -c "wl-paste --watch cliphist store &"')
 exec_once("wl-paste --type text --watch cliphist store")
 exec_once("wl-paste --type image --watch cliphist store")
 exec_once("kdeconnectd")
 exec_once("kdeconnect-indicator")
-exec_once("rustdesk")
 exec_once("~/sh/wechat_focus_main.sh")
 exec_once("~/sh/scrcpy_workspace_sync.sh")
 exec_once("vicinae server")
 exec_once("hypridle")
 exec_once("pot")
 exec_once("~/.config/hypr/local_custom/mem_alert.sh")
-exec_once("phpbox --hide &!")
+	exec_once("phpbox --hide &!")
+	exec_once("kitty")
 
 window_rule("tile-window", { class = "^(org\\.wezfurlong\\.wezterm|gnome-control-center|pavucontrol|nm-connection-editor)$" }, {})
 window_rule("border-1", { class = "^(kitty|wechat)$" }, {})
@@ -210,7 +213,7 @@ window_rule("fix-wechat-send", { class = "wechat", title = "^微信发送给$" }
 
 local class_rules = {
 	{ "file-roller", "^(org\\.gnome\\.FileRoller)", { float = true } },
-	{ "gnome-calculator", "^(gnome-calculator)$", { float = true } },
+	{ "gnome-calculator", "^(org\\.gnome\\.Calculator)$", { float = true, size = { 360, 616 } } },
 	{ "galculator", "^(galculator)$", { float = true } },
 	{ "cc-switch", "^(cc-switch)$", { float = true } },
 	{ "evolution", "^(org.gnome.Evolution)$", { float = true } },
@@ -269,6 +272,7 @@ window_rule("pot-size", { class = "^(pot)$" }, { size = { 520, 1000 } })
 window_rule("copyq-size", { class = "^(copyq)$" }, { size = { 320, 500 } })
 window_rule("copyq-move", { class = "^(copyq)$" }, { move = { "cursor_x", "cursor_y" } })
 window_rule("nautilus-size", { class = "^(org\\.gnome\\.Nautilus)$" }, { size = { 1200, 800 } })
+window_rule("netease-size", { class = "^(netease-cloud-music-web-player)$" }, { size = { 1060, 738 } })
 window_rule("pip-float", { title = "(Picture-in-Picture|画中画)" }, { float = true })
 window_rule("pip-pin", { title = "(Picture-in-Picture|画中画)" }, { pin = true })
 window_rule("pip-size", { title = "(Picture-in-Picture|画中画)" }, { size = { 640, 360 } })
@@ -390,3 +394,6 @@ bind_exec(mod .. " + CTRL + up", "dms restart")
 bind_exec(mod .. " + G", "~/.config/hypr/local_custom/toggle_wechat.sh")
 bind_exec(mod .. " + A", "hyptg claude-desktop Claude")
 bind_exec(mod .. " + B", "dms ipc call plugins toggle aiAssistant")
+
+-- DMS Include Configs
+require("dms.layout")

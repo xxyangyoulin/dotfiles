@@ -126,6 +126,13 @@ alias sd='sudo docker'
 alias sde='sd exec -it php-fpm /bin/zsh'
 alias pnpm10='/home/yyl/.local/share/pnpm/.tools/pnpm-exe/10.33.4/pnpm'
 
+alias ls="eza --icons --time-style +%Y-%m-%d\ %H:%M:%S"
+alias ll="ls -lh"
+alias la="ll -a"
+alias lg="lla --git"
+alias tree="ls -T"
+alias icat="kitty +kitten icat"
+
 
 export EDITOR='vim'
 

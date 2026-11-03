@@ -1,0 +1,551 @@
+# Hyprland Configuration
+# https://wiki.hypr.land/Configuring/
+
+# ============================================================
+# 01. 环境变量与基础设置 (ENV & BASE)
+# ============================================================
+env = QT_IM_MODULE fcitx
+env = XMODIFIERS "@im=fcitx"
+env = MYPHONE,ed546061
+env = LANG,zh_CN.UTF-8
+env = LANGUAGE,zh_CN:zh:en_US:en
+env = LC_ALL,zh_CN.UTF-8
+
+# env = QT_AUTO_SCREEN_SCALE_FACTOR, 1
+# env = QT_SCALE_FACTOR, 1.6
+# env = GDK_DPI_SCALE, 1.6
+
+xwayland {
+    force_zero_scaling = true
+    use_nearest_neighbor = false
+}
+
+# ============================================================
+# 02. 显示器配置 (MONITOR CONFIG)
+# ============================================================
+# Monitors from existing configuration
+# monitor=HDMI-A-1,preferred,auto,auto
+# monitor=Unknown-1,1920x1080@60,0x0,1
+# monitor=Unknown-1,1920x1080@60,0x0,1
+# monitor=,preferred,auto,auto
+# monitor=ss,1920x1080@60,0x0,1
+# monitor=HEADLESS-2,1920x1080@60,0x0,1
+# monitor=DP-2,preferred,auto,1.875
+
+monitor = , preferred,auto,1
+#monitor=,3840x2160@60,auto,1.
+
+#  monitor = , preferred,auto,auto
+
+# ============================================================
+# 03. 输入与外设 (INPUT & CURSOR)
+# ============================================================
+input {
+    kb_layout = us
+    numlock_by_default = true
+
+    follow_mouse = 2
+    float_switch_override_focus=0
+}
+
+cursor {
+    no_warps = true
+    # 其它 cursor 相关设置，比如：
+    # warp_on_change_workspace = 0
+    # persistent_warps = false
+    # enable_hyprcursor = true
+}
+
+device {
+    name = epic-mouse-v1
+    sensitivity = -0.5
+}
+
+# ============================================================
+# 04. 视觉表现 (GENERAL & DECORATION)
+# ============================================================
+general {
+    gaps_in = 3
+    gaps_out = 3
+    border_size = 2  # off in niri
+
+    # col.active_border = rgba(707070ff)
+    # col.inactive_border = rgba(d0d0d0ff)
+    col.active_border = rgb(d1d0d0)
+    col.inactive_border = rgb(586274)
+    resize_on_border = false
+    allow_tearing = false
+
+    # layout = dwindle
+    layout = master
+}
+
+decoration {
+    rounding = 10
+
+    active_opacity = 1.0
+    inactive_opacity = 1.0
+
+    shadow {
+        enabled = true
+
+        # 阴影范围：mac 偏大且很软
+        range = 45
+
+        # 渲染强度：数值越大越“糊”，mac 是糊而不脏
+        render_power = 4
+
+        # 轻微向下偏移（mac 的关键点）
+        offset = 0 5
+
+        # 低对比度黑色，偏透明
+        color = rgba(00000028)
+    }
+
+    blur {
+        enabled = true
+        size = 8
+        passes = 3
+        vibrancy = 0.1696
+        new_optimizations = true
+    }
+}
+
+group {
+    groupbar {
+        indicator_height = 0
+        font_weight_active = bold
+    }
+}
+
+# ============================================================
+# 05. 动画效果 (ANIMATIONS)
+# ============================================================
+animations {
+    enabled = true
+
+    animation = windowsIn, 1, 3, default
+    animation = windowsOut, 1, 3, default
+    #animation = workspaces, 0, 1.5, default
+    #animation = workspaces, 1, 3, default,slide 10%
+    animation = workspacesIn, 1, 3, default,slide 10%
+    animation = workspacesOut, 1, 3, default,slidefade 10%
+    #animation = workspaces, 1, 3, default
+    animation = windowsMove, 1, 4, default
+    animation = fade, 1, 3, default
+    animation = border, 1, 3, default
+}
+
+# ============================================================
+# 06. 布局策略 (LAYOUTS)
+# ============================================================
+dwindle {
+    preserve_split = true
+    force_split = 2
+}
+
+master {
+    orientation = left   # 主窗口在左边
+    mfact = 0.65
+}
+
+# ============================================================
+# 07. 杂项与插件 (MISC & PLUGINS)
+# ============================================================
+misc {
+    disable_hyprland_logo = true
+    disable_splash_rendering = true
+    vrr = 1
+    allow_session_lock_restore = 1
+    focus_on_activate = true
+    mouse_move_enables_dpms = false
+}
+
+plugin:dynamic-cursors {
+    # enables the plugin
+    enabled = true
+    mode = tilt
+}
+
+plugin:easymotion{
+	textsize=25
+	rounding=6
+	textpadding=16
+	bgcolor=rgba(33ccffee)
+}
+
+plugin:hyprexpo {
+       columns = 3
+       gap_size = 5
+       bg_col = rgb(111111)
+       workspace_method = center current # [center/first] [workspace] e.g. first 1 or center m+1
+
+#       gesture_distance = 300 # how far is the "max" for the gesture
+}
+
+# ============================================================
+# 08. 启动应用 (STARTUP APPS)
+# ============================================================
+exec-once = systemctl --user import-environment --all
+exec-once = dbus-update-activation-environment --systemd --all
+exec-once = systemctl --user start hyprland-session.target
+exec-once = xrdb -merge ~/.Xresources
+exec-once = fcitx5 -d  --replace
+exec-once = flclash
+exec-once = udiskie &
+exec-once = bash -c "wl-paste --watch cliphist store &"
+#exec-once = wl-paste --type text --watch cliphist store
+#exec-once = wl-paste --type image --watch cliphist store
+exec-once = wl-clipboard-history -t
+#exec-once = wl-paste --watch cliphist store
+exec-once = kdeconnectd
+exec-once = kdeconnect-indicator
+exec-once = rustdesk
+exec-once = ~/sh/wechat_focus_main.sh
+exec-once = vicinae server
+exec-once = pot
+
+# ============================================================
+# 09. 窗口/层级规则 (RULES)
+# ============================================================
+# --- 通用窗口规则 ---
+windowrule{
+    name = tile_window
+    match:class = ^(org\.wezfurlong\.wezterm|gnome-control-center|pavucontrol|nm-connection-editor)$
+}
+
+windowrule{
+    name = border-1
+    match:class = ^(kitty|wechat)$
+}
+
+windowrule = match:class ^(org\.gnome\.), rounding 12
+windowrule = match:class ^(org\.gnome\.), border_size 0
+
+windowrule = match:class ^(gnome-calculator)$, float on
+windowrule = match:class ^(galculator)$, float on
+windowrule = match:class ^(blueman-manager)$, float on
+windowrule = match:class ^(org\.gnome\.Nautilus)$, float on
+windowrule = match:class ^(org\.telegram\.desktop)$, float on
+windowrule = match:class ^(steam)$, float on
+windowrule = match:class ^(xdg-desktop-portal)$, float on
+windowrule = match:class ^(com.follow.clash)$, float on
+
+windowrule = match:class ^(org\.wezfurlong\.wezterm)$, border_size 0
+windowrule = match:class ^(Alacritty)$, border_size 0
+windowrule = match:class ^(zen)$, border_size 0
+windowrule = match:class ^(com\.mitchellh\.ghostty)$, border_size 0
+
+windowrule = match:class ^(firefox)$, match:title ^(Picture-in-Picture)$, float on
+windowrule = match:class ^(zoom)$, float on
+
+windowrule = match:class ^(fcitx.*)$, float on, border_size 0, no_blur on, no_focus on
+
+windowrule = match:class ^(scrcpy.*)$, float on
+windowrule = match:class ^(mpv.*)$, float on
+windowrule = match:class ^(io.github.kaii_lb.Overskride.*)$, float on
+windowrule = match:class ^(org.pulseaudio.pavucontrol.*)$, float on
+windowrule = match:class ^(nm-connection-editor.*)$, float on
+windowrule = match:class ^(qBittorrent.*)$, float on
+windowrule = match:class ^(QQ.*)$, float on
+windowrule = match:class ^(rustdesk.*)$, float on
+
+windowrule = match:class ^(satty.*)$, pin on
+
+windowrule = match:class ^(crow-translate.*)$, float on
+windowrule = match:class ^(netease-cloud-music.*)$, float on
+windowrule = match:class ^(Pot.*)$, float on
+windowrule = match:class ^(flclash.*)$, float on
+
+windowrule = match:class ^(Waydroid.*|waydroid.*)$, float on, border_size 0, no_blur on
+
+windowrule = match:class ^(xdg-desktop-portal-gtk.*)$, float on
+
+windowrule = match:class ^(copyq)$, float on
+windowrule = match:class ^(org.kde.kruler)$, float on
+
+windowrule = match:class ^(pot)$, float on
+windowrule = match:class ^(pot)$, match:title (Translator|OCR|PopClip|Screenshot Translate), float on
+windowrule = match:class ^(pot)$, opacity 0.95 0.95
+
+windowrule = match:class ^(pot)$, match:title (Translator|PopClip|Screenshot Translate), move cursor 0 0
+windowrule = match:class ^(pot)$, size 520 1000
+
+windowrule = match:class ^(copyq)$, size 320 500
+windowrule = match:class ^(copyq)$, move onscreen cursor
+
+windowrule = match:class ^(swappy)$, pin on, no_blur true
+
+windowrule = match:class ^(org\.gnome\.Nautilus)$, size 1200 800
+
+# --- 工作区绑定与特殊规则 ---
+windowrule = match:class ^(apifox)$, workspace 3 silent
+# windowrule = match:class ^(google-chrome)$, workspace 2 silent
+windowrule = match:class ^(即时设计)$, workspace 5 silent
+# windowrule = match:class ^(jetbrains-datagrip)$, workspace 4 silent
+# windowrule = match:class ^(android-studio)$, workspace 6 silent
+# windowrule = match:class ^(jetbrains-phpstorm)$, workspace 1 silent
+windowrule = match:class ^(scrcpy)$, workspace 10 silent
+windowrule = match:class ^(scrcpy)$, size 300 653
+windowrule = match:class ^(scrcpy)$, move 731 224
+
+windowrule = match:class ^(kitty)$, opacity 0.9 0.9
+windowrule = match:class ^(wechat)$, opacity 0.97 0.97
+windowrule = match:class ^(wechat)$, border_color rgb(07C160) rgb(A3D9D1)
+
+windowrule = match:class ^(jetbrains-).*, match:float on, no_initial_focus on
+
+windowrule = match:class .*, suppress_event maximize
+
+# Fix some dragging issues with XWayland
+windowrule = match:xwayland 1, match:float 1, match:fullscreen 0, match:pin 0, match:title ^$, match:class ^$, no_focus on
+
+workspace = w[t1], gapsout:0, gapsin:0
+windowrule = match:workspace w[t1], match:float 0, border_size 0
+
+# DMS windows floating by default
+windowrule = match:class ^(org.quickshell)$, float on
+#windowrule = match:float 0, match:focus 0, opacity 0.9 0.9
+
+# --- 微信特定规则 ---
+# windowrule{
+#     name = wechat
+#     no_blur = true
+#     border_size = 0
+#     no_shadow = true
+#     match:class = (wechat)
+#     match:title = negative:^(微信|设置|聊天文件|预览|图片和视频)\W*
+# }
+windowrule {
+    name=fix-wechat
+    match:class = wechat
+    match:title = negative:^(朋友圈|微信|设置|聊天文件|预览|图片和视频)\W*
+    no_blur=on
+    no_shadow=on
+    border_size=0
+}
+
+windowrule {
+    name=fix-wechat-send
+    match:class = wechat
+    match:title = ^微信发送给$
+    no_blur=on
+    no_shadow=on
+    border_size=0
+}
+windowrule = match:class ^(wechat)$, match:title .*,float true
+# windowrule = match:class ^(wechat)$, match:title .*.的聊天记录.*|打开|朋友圈, no_shadow false
+# windowrule = match:xwayland 1, match:title 微信, float true
+
+# `windowrule = noblur, class:^wechat$, title:^微信发送给$
+# `windowrule = noborder, class:^wechat$, title:^微信发送给$
+# `windowrule = noshadow, class:^wechat$, title:^微信发送给$
+
+# --- 层级规则 (Layer Rules) ---
+layerrule{
+    name = dms-pop
+    blur = true
+    ignore_alpha = 0.1
+    animation = fade
+    match:class = ^(dms:bar|dms:dash|dms:control-center|dms:app-launcher|dms:notification-center-popout|dms:notification-popup|dms:osd|dms-plugin:plugin)$
+}
+layerrule = match:namespace ^(quickshell)$, no_anim on
+# blur
+layerrule = match:class vicinae, blur on,ignore_alpha 0,no_anim true
+
+# ============================================================
+# 10. 快捷键绑定 (KEYBINDINGS) - 严格对齐版
+# ============================================================
+$mod = SUPER
+
+# === Application Launchers ===e
+bind = $mod, O,             exec, hyprctl clients  >~/.layers
+bind = $mod, return,        exec, kitty # 终端
+bind = $mod, space,         exec, dms ipc call spotlight toggle # 搜索
+bind = $mod, V,             exec, dms ipc call clipboard toggle # 剪切板
+bind = $mod SHIFT, M,       exec, dms ipc call processlist focusOrToggle # 系统监视器
+# bind = $mod, comma,       exec, dms ipc call settings focusOrTogglew 
+bind = $mod, N,             exec, dms ipc call notifications toggle # 通知
+bind = $mod SHIFT, N,       exec, dms ipc call notepad toggle # 便签
+# bind = $mod, Y,           exec, dms ipc call dankdash wallpaper
+# bind = $mod, TAB,         exec, dms ipc call hypr toggleOverview
+bind = $mod, E,             exec, nautilus --new-window #文件管理器
+bind = $mod SHIFT, G,       exec, hdrop netease-cloud-music #网易云
+#bind = ALT, D,             exec, curl "127.0.0.1:60828/selection_translate" #划词翻译
+bind = ALT, D,              exec, wl-paste --primary | curl -s -X POST http://127.0.0.1:60828/  --data-binary @-
+bind = ALT, S,              exec, grim -g "$(slurp)" ~/.cache/com.pot-app.desktop/pot_screenshot_cut.png && curl "127.0.0.1:60828/ocr_translate?screenshot=false" #截图翻译
+bind = $mod, M,             exec,  dms ipc call keybinds toggle hyprland #快捷键
+bind = $mod, F8,            exec, /home/yyl/sh/startscrcpy.sh #打开scrcpy
+bind = $mod, F10,           exec, /home/yyl/sh/unlockphone.sh #解锁手机
+bind = $mod, F9,            exec, /home/yyl/sh/killscrcpy.sh #关闭scrcpy
+bind = $mod, F1,            exec, adb -s ed546061 shell input keyevent KEYCODE_HOME #手机返回
+bind = $mod ALT, F,         exec, grim -t png -g "$(slurp)" - | swappy -f - # 截图 swappy
+# bind = $mod shift, F,     exec, grim -g "$(slurp)" -t ppm - | satty --filename - --fullscreen --copy-command wl-copy --output-filename "/home/yyl/Pictures/Screenshots/screenshot-%Y-%m-%d_%H:%M:%S.png" #截图 satty
+bind = $mod CTRL, G,        exec, hyprpicker |wl-copy #取色
+bind = $mod ALT, M,         exec, notify-send "Window Class" "$(hyprctl activewindow | grep 'class:')" && hyprctl activewindow | grep 'class:' | awk '{print $2}' | wl-copy #GET CLASS
+bind = $mod CTRL, M,        exec, notify-send "Window Title" "$(hyprctl activewindow)" && hyprctl activewindow | wl-copy #GET CLASS
+
+# === Security ===
+bind = $mod, X,             exec, dms ipc call lock lock; /home/yyl/sh/killscrcpy.sh #锁屏
+bind = $mod SHIFT, E,       exit #推出桌面
+bind = CTRL ALT, Delete,    exec, dms ipc call processlist focusOrToggle
+
+# === Audio Controls ===
+bindel = , XF86AudioRaiseVolume, exec, dms ipc call audio increment 3
+bindel = , XF86AudioLowerVolume, exec, dms ipc call audio decrement 3
+bindl  = , XF86AudioMute,        exec, dms ipc call audio mute
+bindl  = , XF86AudioMicMute,     exec, dms ipc call audio micmute
+bindl  = , XF86AudioNext,        exec, playerctl next
+bindl  = , XF86AudioPause,       exec, playerctl play-pause
+bindl  = , XF86AudioPlay,        exec, playerctl play-pause
+bindl  = , XF86AudioPrev,        exec, playerctl previous
+bind = $mod, F11,                exec, /home/yyl/sh/dd-incbr.sh
+bind = $mod, F12,                exec, /home/yyl/sh/dd-decbr.sh
+
+# === Brightness Controls ===
+bindel = , XF86MonBrightnessUp,   exec, dms ipc call brightness increment 5 ""
+bindel = , XF86MonBrightnessDown, exec, dms ipc call brightness decrement 5 ""
+
+# === Window Management ===
+bind = $mod, W,             killactive #关闭窗口
+bind = $mod SHIFT, W,       exec, hyprctl kill #杀死应用
+bind = $mod, F,             fullscreen, 1 #窗口铺满
+bind = $mod SHIFT, F,       fullscreen, 0  #窗口全屏
+bind = $mod, T,             movetoworkspacesilent, special:minimized #最小化
+bind = $mod SHIFT, T,       togglespecialworkspace, minimized #反最小化
+bind = $mod SHIFT, T,       movetoworkspace, +0 #反最小化
+bind = $mod, S,             togglefloating, # 切换悬浮模式
+bind = $mod, Y,             togglegroup, # 切换编组
+bind = $mod, Z,             changegroupactive # 切换编组中的窗口
+bind = $mod, U,             changegroupactive # 切换编组中的窗口
+bind = $mod SHIFT, U,       moveoutofgroup # 切换编组中的窗口
+bind = $mod ALT, G,         lockgroups,toggle #编组锁定
+bind = $mod, D,             layoutmsg, swapwithmaster master# 将当前窗口置为主窗口
+bind = ALT, Tab,            cyclenext # Alt + Tab：切换到下一个窗口
+bind = ALT SHIFT, Tab,      cyclenext, prev # Alt + Shift + Tab：切换到上一个窗口
+
+# === Focus Navigation ===
+bind = $mod, H,             movefocus, l
+bind = $mod, J,             movefocus, d
+bind = $mod, K,             movefocus, u
+bind = $mod, L,             movefocus, r
+
+# === Window Movement ===
+bind = $mod SHIFT, H,       movewindow, l
+bind = $mod SHIFT, J,       movewindow, d
+bind = $mod SHIFT, K,       movewindow, u
+bind = $mod SHIFT, L,       movewindow, r
+
+# === Column Navigation ===
+bind = $mod, Home,          focuswindow, first
+bind = $mod, End,           focuswindow, last
+
+# === Monitor Navigation ===
+# bind = $mod CTRL, left,   focusmonitor, l
+# bind = $mod CTRL, right,  focusmonitor, r
+# bind = $mod CTRL, H,      focusmonitor, l
+# bind = $mod CTRL, J,      focusmonitor, d
+# bind = $mod CTRL, K,      focusmonitor, u
+# bind = $mod CTRL, L,      focusmonitor, r
+
+# === Move to Monitor ===
+# bind = $mod SHIFT CTRL, left,  movewindow, mon:l
+# bind = $mod SHIFT CTRL, down,  movewindow, mon:d
+# bind = $mod SHIFT CTRL, up,    movewindow, mon:u,
+# bind = $mod SHIFT CTRL, right, movewindow, mon:r
+# bind = $mod SHIFT CTRL, H,     movewindow, mon:l
+# bind = $mod SHIFT CTRL, J,     movewindow, mon:d
+# bind = $mod SHIFT CTRL, K,     movewindow, mon:u
+# bind = $mod SHIFT CTRL, L,     movewindow, mon:r
+
+# === Workspace Navigation ===
+bind = SUPER, Tab,          workspace, previous #返回上一个空间
+# bind = $mod, Page_Down,    workspace, e+1
+# bind = $mod, Page_Up,      workspace, e-1
+# bind = $mod, U,            workspace, e+1
+# bind = $mod, I,            workspace, e-1
+# bind = $mod CTRL, down,    movetoworkspace, e+1
+# bind = $mod CTRL, up,      movetoworkspace, e-1
+# bind = $mod CTRL, U,       movetoworkspace, e+1
+# bind = $mod CTRL, I,       movetoworkspace, e-1
+
+# === Move Workspaces ===
+bind = $mod SHIFT, Page_Down, movetoworkspace, e+1
+bind = $mod SHIFT, Page_Up,   movetoworkspace, e-1
+bind = $mod SHIFT, U,         movetoworkspace, e+1
+bind = $mod SHIFT, I,         movetoworkspace, e-1
+
+# === Mouse Wheel Navigation ===
+bind = $mod, mouse_down,           workspace, e+1
+bind = $mod, mouse_up,             workspace, e-1
+bind = $mod CTRL, mouse_down,      movetoworkspace, e+1
+bind = $mod CTRL, mouse_up,        movetoworkspace, e-1
+
+# === Numbered Workspaces ===
+bind = $mod, 1,             workspace, 1
+bind = $mod, 2,             workspace, 2
+bind = $mod, 3,             workspace, 3
+bind = $mod, 4,             workspace, 4
+bind = $mod, 5,             workspace, 5
+bind = $mod, 6,             workspace, 6
+bind = $mod, 7,             workspace, 7
+bind = $mod, 8,             workspace, 8
+bind = $mod, 9,             workspace, 9
+bind = $mod, 0,             workspace, 10
+
+# === Move to Numbered Workspaces ===
+bind = $mod SHIFT, 1,       movetoworkspace, 1
+bind = $mod SHIFT, 2,       movetoworkspace, 2
+bind = $mod SHIFT, 3,       movetoworkspace, 3
+bind = $mod SHIFT, 4,       movetoworkspace, 4
+bind = $mod SHIFT, 5,       movetoworkspace, 5
+bind = $mod SHIFT, 6,       movetoworkspace, 6
+bind = $mod SHIFT, 7,       movetoworkspace, 7
+bind = $mod SHIFT, 8,       movetoworkspace, 8
+bind = $mod SHIFT, 9,       movetoworkspace, 9
+bind = $mod SHIFT, 0,       movetoworkspace, 10
+
+# === Column Management ===
+bind = $mod, bracketleft,   layoutmsg, preselect l
+bind = $mod, bracketright,  layoutmsg, preselect r
+
+# === Sizing & Layout ===
+; bind = $mod, R,           layoutmsg, togglesplit
+bind = $mod SHIFT, R,       togglesplit, # dwindle
+bind = $mod, R,             swapsplit,
+bind = $mod CTRL, F,        resizeactive, exact 100%
+
+# === Move/resize windows with mod + LMB/RMB and dragging ===
+bindmd = $mod, mouse:272,   Move window, movewindow
+bindmd = $mod, mouse:273,   Resize window, resizewindow
+
+# === Additional Window Controls ===
+bindd = $mod, code:20,      Expand window left, resizeactive, -100 0
+bindd = $mod, code:21,      Shrink window left, resizeactive, 100 0
+
+# === Manual Sizing ===
+binde = $mod, minus,        resizeactive, -10% 0
+binde = $mod, equal,        resizeactive, 10% 0
+binde = $mod SHIFT, minus,  resizeactive, 0 -10%
+binde = $mod SHIFT, equal,  resizeactive, 0 10%
+
+# === Screenshots ===
+bind = , Print,             exec, dms screenshot
+bind = CTRL, Print,         exec, dms screenshot full
+bind = ALT, Print,          exec, dms screenshot window
+
+# === System Controls ===
+bind = $mod SHIFT, p,       exit
+# bind = $mod SHIFT, P,      dpms, toggle
+
+# use whatever shortcut floats your boat
+#bind = $mainMod, Space,    exec, vicinae toggle
+
+# ============================================================
+# 11. 外部引用 (SOURCES)
+# ============================================================
+source = ./local_custom/hyprland.conf
+
+#source = ./dms/outputs.conf
+
+#source = ./dms/cursor.conf
